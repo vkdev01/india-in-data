@@ -345,8 +345,11 @@ export default function WorkPage() {
           />
           <p className="muted" style={{ marginTop: '0.7rem', marginBottom: 0 }}>
             The all-India gap is {nationalGap != null ? `${nationalGap.toFixed(1)} percentage points` : '—'}. The
-            widest gaps are not in the poorest States: they sit where women&rsquo;s work is least socially
-            acceptable, which is a different constraint from a shortage of jobs.
+            widest gaps are not in the poorest States &mdash; they are in the most literate ones. Lakshadweep
+            (57.6 pp) has 88% female literacy, Delhi (51.6 pp) 80.8% and Chandigarh (45.9 pp) 81.2%. The narrowest
+            are Meghalaya (10.5 pp), Arunachal Pradesh (12.7) and Himachal Pradesh (14.1). Where women are literate
+            and the local economy offers no work they can take without leaving unpaid care, education raises the
+            reservation wage and participation falls. That is a care constraint, not a skills constraint.
           </p>
         </Card>
 
@@ -383,11 +386,11 @@ export default function WorkPage() {
               </table>
             </div>
             <p className="muted" style={{ marginTop: '0.7rem', marginBottom: 0 }}>
-              The most literate States are frequently the ones with the lowest female participation — Kerala,
-              Tamil Nadu and Himachal Pradesh all sit high on literacy and mid-to-low on participation. Education
-              raises the reservation wage and delays entry; it does not by itself create work that a woman can
-              take without withdrawing from unpaid care. The binding constraint is the care burden, not the
-              qualification.
+              Kerala has the highest female literacy in India (91.1%) and a female LFPR of 40.8% &mdash; below the
+              national average of 41.7%. Lakshadweep, at 88.0% literacy, records the lowest participation in the
+              country at 17.1%. Meghalaya, at 72.9% literacy, records the highest at 71.8%. Education raises the
+              reservation wage and delays entry into work; it does not create work a woman can take without
+              withdrawing from unpaid care. The binding constraint is the care burden, not the qualification.
             </p>
           </Card>
         ) : null}

@@ -459,9 +459,10 @@ export default function SubstancePage() {
           </div>
 
           <p className="muted" style={{ marginTop: '1rem' }}>
-            The gender gap in participation is not a national constant. The widest gaps sit where women&rsquo;s
-            paid work is least socially acceptable, not where jobs are scarcest — a different constraint from the
-            one a jobs programme addresses.
+            The gender gap in participation is not a national constant, and it does not track poverty. The eight
+            widest gaps below include Lakshadweep and Delhi, which have among the highest female literacy rates in
+            the country; the narrowest are all in the North-East and Himachal Pradesh. A jobs programme addresses
+            the first constraint. Only the care burden addresses this one.
           </p>
           <HorizontalBars
             items={lfprGaps.slice(0, 8).map((g) => ({ label: g.name, value: g.value }))}
