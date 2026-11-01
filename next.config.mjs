@@ -2,10 +2,10 @@
  * Next.js config — static export for GitHub Pages.
  *
  * The app is deployed as a *project* site at
- *   https://<user>.github.io/ncrb-data-dashboard/
+ *   https://<user>.github.io/india-in-data/
  * so production builds need a basePath. Dev keeps the root path.
  */
-const REPO = 'ncrb-data-dashboard';
+const REPO = 'india-in-data';
 const isProd = process.env.NODE_ENV === 'production';
 const basePath = isProd ? `/${REPO}` : '';
 

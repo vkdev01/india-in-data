@@ -14,6 +14,20 @@ Nothing in it is modelled. Where a value was never published at a geography (Tel
 
 ---
 
+## The substance section
+
+`/substance` applies the framework from the working paper *The Substance of an Economy* to India. The argument there is that output metrics answer a **flow** question while the question that decides whether a society holds together is a **stock** question — a country can raise this year's output by drawing down its own foundations: working children instead of educating them, exporting clinicians instead of retaining them, financing consumption from a depleting rent instead of from production.
+
+So every domain of capability is asked three questions rather than one. **Level** — is the capability adequate? **Endogeneity** — is it produced here, or imported, rented or donor-supplied? **Durability** — would it survive a funding withdrawal, a price spike, or a programme being renamed? Existing indices ask only the first.
+
+The page carries a published-figure register across six domains — foundational competence, health, work, social security, fiscal and administrative capacity, and household material substance — every value with its source and reference period attached, and nothing modelled, interpolated or back-cast.
+
+It publishes **no composite score for India**, and that is the finding rather than an omission. The framework requires three published indicators per axis before that axis is scored and refuses to impute the rest. Applied to India: the Level axis is reasonably measured in five of six domains, the Endogeneity axis in one, and the Durability axis in none. A single number computed from that evidence would be an artefact of what happens to be published, and would hide precisely the gap the framework exists to expose.
+
+The working paper (PDF) and the standalone framework explorer are served from `public/substance/` and linked from the page. `/substance/methodology` carries the indicator register, the aggregation algebra, what is deliberately not published, and the known defect in every source.
+
+---
+
 ## Quick start
 
 ```bash
@@ -49,6 +63,8 @@ npm run fetch-data # refresh the bundled data snapshot
 | `/census/crime` | Crime rate against census measures — and why the relationship confounds |
 | `/census/methodology` | Sources, boundary reconciliation, missing cells, limits |
 | `/glossary` | Plain-language definitions of the crime heads, legal categories and statistical terms |
+| `/substance` | The framework applied to India — six domains, three axes, and why no composite score is published. |
+| `/substance/methodology` | Indicator register, aggregation algebra and the defect in every source. |
 | `/about` | Methodology, sources and limitations |
 
 ## Features
@@ -103,6 +119,10 @@ Every dataset is registered once in `src/lib/data/sources.ts` with a **live URL*
 - **Indian Data Project** — NCRB-derived JSON endpoints, CORS-enabled, no key (used as the live feed) · <https://indiandataproject.org/open-data>
 - **OpenCity (CKAN)** — public-domain mirror of NCRB tables, including CSV resources · <https://data.opencity.in/>
 - **Esri India Living Atlas** — NCRB district tables as queryable feature services (district layer) · <https://livingatlas.esri.in/server1/rest/services/NCRB>
+- **ASER Centre** — citizen-led rural learning assessment, foundational reading and numeracy · <https://asercentre.org/>
+- **MoSPI** — Periodic Labour Force Survey and the Time Use Survey · <https://www.mospi.gov.in/>
+- **WHO** — UHC service coverage, health financing and out-of-pocket spending · <https://www.who.int/>
+- **ILO** — World Social Protection Report and social protection coverage · <https://www.ilo.org/>
 - **udit-001/india-maps-data** — India district boundaries (GeoJSON), simplified and bundled under `public/data/` · <https://github.com/udit-001/india-maps-data>
 
 NCRB does not publish a clean public API, and data.gov.in requires an API key — which is why the app reads a CORS-enabled NCRB-derived feed at runtime and ships a bundled snapshot for resilience. The district layer is fetched at build time by `scripts/fetch-data.mjs` and bundled as `public/data/districts.json`.
@@ -111,7 +131,7 @@ NCRB does not publish a clean public API, and data.gov.in requires an API key �
 
 Pushing to `main` triggers `.github/workflows/deploy.yml`, which installs, refreshes the data snapshot (best-effort), runs `next build` (static export to `./out`) and publishes it to GitHub Pages.
 
-Because the site is a GitHub **project** page, production builds run under a `basePath` (`/ncrb-data-dashboard`) — see `next.config.mjs`.
+Because the site is a GitHub **project** page, production builds run under a `basePath` (`/india-in-data`) — see `next.config.mjs`.
 
 ## Limitations (short version)
 

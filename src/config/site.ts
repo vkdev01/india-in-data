@@ -7,7 +7,7 @@ export const site = {
   description:
     'An open, interactive explorer of India: NCRB crime statistics, the 2011 census, a warming climate, live air ' +
     'quality, sixty years of economic progress and how India compares on women’s safety.',
-  repo: 'https://github.com/vkdev01/ncrb-data-dashboard',
+  repo: 'https://github.com/vkdev01/india-in-data',
 };
 
 export interface Domain {
@@ -29,6 +29,7 @@ export const domains: Domain[] = [
   { id: 'climate', label: 'Climate' },
   { id: 'air', label: 'Air' },
   { id: 'economy', label: 'Economy' },
+  { id: 'substance', label: 'Substance' },
   { id: 'society', label: 'Society' },
   { id: 'about', label: 'About' },
 ];
@@ -70,6 +71,20 @@ export const nav: NavItem[] = [
   // ---- economy ----
   { href: '/economy', label: 'Economy', blurb: 'Sixty years of World Bank indicators for India.', domain: 'economy' },
 
+  // ---- substance ----
+  {
+    href: '/substance',
+    label: 'Substance',
+    blurb: 'What the economy can actually reproduce — capability, provenance and durability.',
+    domain: 'substance',
+  },
+  {
+    href: '/substance/methodology',
+    label: 'Method',
+    blurb: 'The indicator register, the algebra and what is deliberately not published.',
+    domain: 'substance',
+  },
+
   // ---- society ----
   { href: '/safety', label: "Women's safety", blurb: "A 50-country comparison, with its caveats.", domain: 'society' },
 
@@ -107,4 +122,12 @@ export const sources = [
   { name: 'World Bank Open Data', url: 'https://data.worldbank.org/', note: 'Economic and development indicators.' },
   { name: 'Indian Data Project', url: 'https://indiandataproject.org/open-data', note: 'NCRB-derived JSON feeds.' },
   { name: 'Esri India Living Atlas', url: 'https://livingatlas.esri.in/server1/rest/services/NCRB', note: 'NCRB district tables as feature services.' },
+  {
+    name: 'ASER Centre',
+    url: 'https://asercentre.org/',
+    note: 'Citizen-led rural learning assessment; foundational reading and numeracy.',
+  },
+  { name: 'MoSPI', url: 'https://www.mospi.gov.in/', note: 'PLFS labour force surveys and the Time Use Survey.' },
+  { name: 'World Health Organization', url: 'https://www.who.int/', note: 'UHC coverage, health financing and out-of-pocket spending.' },
+  { name: 'International Labour Organization', url: 'https://www.ilo.org/', note: 'World Social Protection Report and social protection coverage.' },
 ];

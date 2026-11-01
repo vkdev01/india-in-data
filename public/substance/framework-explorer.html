@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Substance of an Economy &mdash; framework and method</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F6F3EC;
+  --bg-deep: #EFEBE1;
+  --surface: #FFFDF8;
+  --surface-2: #FAF7F0;
+  --border: rgba(31,53,82,0.13);
+  --border-soft: rgba(31,53,82,0.07);
+  --text: #1A1F26;
+  --text-dim: #5D6773;
+  --text-faint: #8A929C;
+  --navy: #1F3552;
+  --navy-soft: #2C4767;
+  --terra: #A8542F;
+  --terra-dim: #C87A55;
+  --sage: #55704F;
+  --gold: #A67C24;
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-body: "IBM Plex Sans", -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --shadow-1: 0 1px 2px rgba(31,53,82,0.05), 0 4px 14px rgba(31,53,82,0.045);
+  --shadow-2: 0 2px 4px rgba(31,53,82,0.06), 0 14px 38px rgba(31,53,82,0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14181D;
+    --bg-deep: #0F1216;
+    --surface: #1B2027;
+    --surface-2: #20262E;
+    --border: rgba(214,222,232,0.14);
+    --border-soft: rgba(214,222,232,0.07);
+    --text: #E8E6E1;
+    --text-dim: #A0A8B3;
+    --text-faint: #77808C;
+    --navy: #C9D6E6;
+    --navy-soft: #A8BBD2;
+    --terra: #D68C63;
+    --terra-dim: #9E5B37;
+    --sage: #8FA98A;
+    --gold: #D2A64C;
+    --shadow-1: 0 1px 2px rgba(0,0,0,0.3), 0 4px 14px rgba(0,0,0,0.22);
+    --shadow-2: 0 2px 4px rgba(0,0,0,0.34), 0 14px 38px rgba(0,0,0,0.3);
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168,84,47,0.07), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 90% 110%, rgba(31,53,82,0.06), transparent 70%);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.012em; }
+p { margin: 0 0 1em; }
+a { color: var(--terra); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+/* ---------- nav ---------- */
+.topnav {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-soft);
+}
+.topnav .wrap {
+  display: flex; align-items: center; gap: 18px;
+  min-height: 52px; flex-wrap: wrap; padding-top: 8px; padding-bottom: 8px;
+}
+.brand {
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--navy);
+  white-space: nowrap;
+}
+.topnav ul {
+  display: flex; gap: 4px; list-style: none; margin: 0; padding: 0;
+  overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0;
+}
+.topnav ul::-webkit-scrollbar { display: none; }
+.topnav a {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--text-dim); text-decoration: none;
+  padding: 5px 9px; border-radius: 3px; white-space: nowrap; transition: .18s;
+}
+.topnav a:hover { color: var(--navy); background: var(--border-soft); }
+
+/* ---------- hero ---------- */
+.hero { padding: 84px 0 62px; }
+.kicker {
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--terra);
+  margin-bottom: 22px; display: flex; align-items: center; gap: 12px;
+}
+.kicker::after { content: ""; height: 1px; flex: 0 0 64px; background: var(--terra); opacity: .45; }
+.hero h1 {
+  font-size: clamp(2.7rem, 6.2vw, 4.5rem); line-height: 1.02;
+  margin: 0 0 26px; max-width: 17ch; color: var(--navy);
+}
+.hero h1 em { font-style: italic; color: var(--terra); }
+.hero .lede {
+  font-size: clamp(1.05rem, 1.7vw, 1.28rem); line-height: 1.58;
+  max-width: 60ch; color: var(--text-dim); margin-bottom: 0;
+}
+.hero .lede strong { color: var(--text); font-weight: 600; }
+.hero-rule { height: 1px; background: var(--border); margin: 52px 0 0; }
+
+/* ---------- sections ---------- */
+section { padding: 66px 0; border-bottom: 1px solid var(--border-soft); }
+section:last-of-type { border-bottom: 0; }
+.sec-head { display: grid; grid-template-columns: 88px 1fr; gap: 20px; margin-bottom: 38px; align-items: start; }
+.sec-num {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--terra);
+  letter-spacing: 0.12em; padding-top: 9px; border-top: 2px solid var(--terra);
+}
+.sec-head h2 { font-size: clamp(1.7rem, 3.3vw, 2.35rem); line-height: 1.14; margin: 0 0 10px; color: var(--navy); max-width: 30ch; }
+.sec-head p { color: var(--text-dim); max-width: 68ch; margin: 0; font-size: 1.01rem; }
+@media (max-width: 700px) { .sec-head { grid-template-columns: 1fr; gap: 10px; } }
+
+/* ---------- stat cards ---------- */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(228px, 1fr)); gap: 14px; }
+.stat {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 4px; padding: 22px 20px 20px;
+  box-shadow: var(--shadow-1); min-width: 0;
+}
+.snum {
+  font-family: var(--font-mono); font-size: 1.62rem; font-weight: 700;
+  color: var(--terra); letter-spacing: -0.02em; margin-bottom: 8px; line-height: 1.1;
+}
+.slabel {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--navy); font-weight: 500;
+  margin-bottom: 9px; line-height: 1.45;
+}
+.sdesc { font-size: 13.4px; line-height: 1.55; color: var(--text-dim); }
+
+/* ---------- LED axis cards ---------- */
+.axes { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 26px; }
+.axis {
+  background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--navy);
+  border-radius: 4px; padding: 22px 22px 20px; box-shadow: var(--shadow-1); min-width: 0;
+}
+.axis:nth-child(1) { border-top-color: var(--navy); }
+.axis:nth-child(2) { border-top-color: var(--sage); }
+.axis:nth-child(3) { border-top-color: var(--terra); }
+.axis .glyph {
+  font-family: var(--font-display); font-size: 2.3rem; line-height: 1;
+  color: var(--navy); margin-bottom: 6px;
+}
+.axis:nth-child(2) .glyph { color: var(--sage); }
+.axis:nth-child(3) .glyph { color: var(--terra); }
+.axis h3 { font-size: 1.16rem; margin: 0 0 4px; color: var(--text); }
+.axis .aq {
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.11em;
+  text-transform: uppercase; color: var(--text-faint); margin-bottom: 12px;
+}
+.axis p { font-size: 13.6px; line-height: 1.58; color: var(--text-dim); margin: 0; }
+
+/* ---------- formula ---------- */
+.formula {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-left: 3px solid var(--gold); border-radius: 4px;
+  padding: 22px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 26px;
+}
+@media (max-width: 780px) { .formula { grid-template-columns: 1fr; gap: 18px; } }
+.formula .f {
+  font-family: var(--font-mono); font-size: 13.5px; line-height: 1.9;
+  color: var(--navy); overflow-x: auto; padding-bottom: 4px;
+}
+.formula .f b { color: var(--terra); font-weight: 700; }
+.formula .fnote { font-size: 13px; color: var(--text-dim); line-height: 1.6; margin: 10px 0 0; }
+.formula h4 {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--text-faint); margin: 0 0 8px; font-weight: 500;
+}
+
+/* ---------- quadrant ---------- */
+.quad-shell {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+  box-shadow: var(--shadow-2); padding: 8px; position: relative;
+}
+.quad-wrap { position: relative; width: 100%; }
+#quad { display: block; width: 100%; height: auto; }
+.quad-legend {
+  display: flex; flex-wrap: wrap; gap: 18px; padding: 16px 20px 14px;
+  border-top: 1px solid var(--border-soft); font-size: 12.4px; color: var(--text-dim);
+}
+.quad-legend .lg { display: flex; align-items: center; gap: 7px; }
+.quad-legend .sw { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; }
+.qpoint { cursor: pointer; transition: opacity .18s; }
+.qpoint:hover { opacity: .72; }
+.qtip {
+  position: absolute; pointer-events: none; opacity: 0; transition: opacity .13s;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+  box-shadow: var(--shadow-2); padding: 11px 14px; font-size: 12.4px;
+  max-width: 260px; z-index: 20; line-height: 1.5;
+}
+.qtip .qt { font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em; color: var(--navy); margin-bottom: 6px; }
+.qtip .qn { color: var(--text-dim); }
+.qtip .qr { font-family: var(--font-mono); font-size: 11px; color: var(--terra); margin-top: 6px; }
+
+/* ---------- domains ---------- */
+.domain {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+  margin-bottom: 10px; box-shadow: var(--shadow-1); overflow: hidden;
+}
+.domain summary {
+  display: grid; grid-template-columns: 44px minmax(150px, 0.9fr) 1.5fr 26px;
+  gap: 16px; align-items: center; padding: 17px 20px; cursor: pointer;
+  list-style: none; transition: background .16s;
+}
+.domain summary::-webkit-details-marker { display: none; }
+.domain summary:hover { background: var(--surface-2); }
+.domain[open] summary { border-bottom: 1px solid var(--border-soft); }
+.dnum {
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
+  color: var(--terra); letter-spacing: .06em;
+}
+.dtitle { font-family: var(--font-display); font-size: 1.24rem; color: var(--navy); line-height: 1.2; }
+.dq { font-size: 13.2px; color: var(--text-dim); line-height: 1.45; font-style: italic; }
+.chev {
+  width: 8px; height: 8px; border-right: 1.5px solid var(--text-faint);
+  border-bottom: 1.5px solid var(--text-faint); transform: rotate(45deg);
+  transition: transform .2s; justify-self: center;
+}
+.domain[open] .chev { transform: rotate(-135deg); }
+@media (max-width: 760px) {
+  .domain summary { grid-template-columns: 38px 1fr 20px; }
+  .dq { display: none; }
+}
+.dbody {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
+  gap: 30px; padding: 22px 22px 26px; background: var(--surface-2);
+}
+.dcol { min-width: 0; }
+.dcol h4 {
+  font-family: var(--font-mono); font-size: 9.2px; letter-spacing: .13em;
+  text-transform: uppercase; color: var(--text-faint); margin: 0 0 7px; font-weight: 500;
+}
+.dcol h4:not(:first-child) { margin-top: 18px; }
+.dcol p { font-size: 13.3px; line-height: 1.58; color: var(--text-dim); margin: 0 0 8px; }
+.conv { font-style: italic; color: var(--text) !important; }
+ul.ind { margin: 0; padding-left: 0; list-style: none; }
+ul.ind li {
+  font-size: 13.2px; line-height: 1.5; color: var(--text-dim);
+  padding-left: 15px; position: relative; margin-bottom: 7px;
+}
+ul.ind li::before {
+  content: ""; position: absolute; left: 0; top: 8px;
+  width: 5px; height: 5px; background: var(--sage); border-radius: 50%;
+}
+.tag-e { color: var(--sage); }
+.tag-d { color: var(--terra); }
+.defect {
+  margin-top: 16px; padding: 12px 14px; background: color-mix(in srgb, var(--terra) 7%, transparent);
+  border-left: 2px solid var(--terra-dim); border-radius: 2px;
+  font-size: 12.7px; line-height: 1.55; color: var(--text-dim);
+}
+.defect span {
+  display: block; font-family: var(--font-mono); font-size: 8.8px;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--terra);
+  margin-bottom: 5px; font-weight: 500;
+}
+
+/* ---------- method lab ---------- */
+.lab {
+  display: grid; grid-template-columns: 306px 1fr; gap: 22px; align-items: start;
+}
+@media (max-width: 900px) { .lab { grid-template-columns: 1fr; } }
+.panel {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+  padding: 22px; box-shadow: var(--shadow-1); min-width: 0;
+}
+.panel h3 {
+  font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--text-faint); margin: 0 0 16px; font-weight: 500;
+}
+.ctrl { margin-bottom: 22px; }
+.ctrl label {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 12.6px; color: var(--text-dim); margin-bottom: 9px; gap: 10px;
+}
+.ctrl label b { font-family: var(--font-mono); color: var(--terra); font-size: 13px; }
+input[type=range] {
+  width: 100%; -webkit-appearance: none; appearance: none; height: 3px;
+  background: var(--border); border-radius: 2px; outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%;
+  background: var(--terra); cursor: pointer; border: 2px solid var(--surface);
+  box-shadow: 0 1px 4px rgba(0,0,0,.2);
+}
+input[type=range]::-moz-range-thumb {
+  width: 15px; height: 15px; border-radius: 50%; background: var(--terra);
+  cursor: pointer; border: 2px solid var(--surface);
+}
+.seg { display: flex; flex-direction: column; gap: 5px; }
+.seg button {
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .05em;
+  text-transform: uppercase; text-align: left; padding: 9px 12px;
+  background: transparent; border: 1px solid var(--border); border-radius: 3px;
+  color: var(--text-dim); cursor: pointer; transition: .15s;
+}
+.seg button:hover { border-color: var(--terra-dim); color: var(--text); }
+.seg button.on {
+  background: var(--navy); border-color: var(--navy); color: #F6F3EC; font-weight: 500;
+}
+@media (prefers-color-scheme: dark) { .seg button.on { color: #14181D; } }
+.hint { font-size: 12.2px; line-height: 1.55; color: var(--text-faint); margin: 16px 0 0; }
+
+table.rank { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.rank th {
+  font-family: var(--font-mono); font-size: 8.8px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text-faint); font-weight: 500;
+  text-align: left; padding: 0 8px 9px; border-bottom: 1px solid var(--border);
+}
+table.rank th.r, table.rank td.r { text-align: right; }
+table.rank td {
+  padding: 9px 8px; border-bottom: 1px solid var(--border-soft);
+  color: var(--text-dim); vertical-align: middle;
+}
+table.rank tr:last-child td { border-bottom: 0; }
+table.rank tr { transition: background .14s; cursor: pointer; }
+table.rank tbody tr:hover { background: var(--surface-2); }
+table.rank tr.sel { background: color-mix(in srgb, var(--terra) 9%, transparent); }
+table.rank td.nm { color: var(--text); font-weight: 500; }
+.rank-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 21px; height: 21px; border-radius: 50%; font-family: var(--font-mono);
+  font-size: 10px; font-weight: 700; background: var(--border-soft); color: var(--text-dim);
+}
+tr:nth-child(1) .rank-badge { background: var(--navy); color: var(--bg); }
+.bar-cell { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+.bar-track {
+  width: 58px; height: 5px; background: var(--border-soft);
+  border-radius: 3px; overflow: hidden; flex: 0 0 auto;
+}
+.bar-fill { height: 100%; background: var(--terra); border-radius: 3px; transition: width .35s; }
+.mono { font-family: var(--font-mono); font-size: 11.5px; }
+
+/* detail panel */
+#detail { margin-top: 18px; }
+.dgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+.dcell {
+  border: 1px solid var(--border-soft); border-radius: 3px;
+  padding: 10px 11px; background: var(--surface-2); min-width: 0;
+}
+.dcell .dn {
+  font-family: var(--font-mono); font-size: 8.6px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--text-faint); margin-bottom: 7px;
+  line-height: 1.35; min-height: 22px;
+}
+.dcell .rows { display: flex; flex-direction: column; gap: 4px; }
+.dcell .rw { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 9.5px; color: var(--text-dim); }
+.dcell .rw i { font-style: normal; width: 8px; color: var(--text-faint); }
+.dcell .rt { flex: 1; height: 3px; background: var(--border-soft); border-radius: 2px; overflow: hidden; }
+.dcell .rf { height: 100%; border-radius: 2px; }
+.flags { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 7px; }
+.flag {
+  font-family: var(--font-mono); font-size: 9.4px; letter-spacing: .05em;
+  padding: 4px 9px; border-radius: 2px; text-transform: uppercase;
+}
+.flag.staged { background: color-mix(in srgb, var(--terra) 14%, transparent); color: var(--terra); }
+.flag.purchased { background: color-mix(in srgb, var(--gold) 16%, transparent); color: var(--gold); }
+.flag.bc { background: color-mix(in srgb, var(--navy) 11%, transparent); color: var(--navy); }
+
+/* ---------- ledger ---------- */
+.tbl-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); box-shadow: var(--shadow-1); }
+table.ledger { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 760px; }
+table.ledger th {
+  font-family: var(--font-mono); font-size: 8.8px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--bg); background: var(--navy);
+  font-weight: 500; text-align: left; padding: 12px 14px; position: sticky; top: 0;
+}
+@media (prefers-color-scheme: dark) { table.ledger th { color: #14181D; } }
+table.ledger td { padding: 11px 14px; border-bottom: 1px solid var(--border-soft); vertical-align: top; line-height: 1.5; }
+table.ledger tr:nth-child(even) td { background: var(--surface-2); }
+table.ledger td.dim { color: var(--text-dim); }
+table.ledger tr:last-child td { border-bottom: 0; }
+
+/* ---------- limits ---------- */
+.limits { display: grid; grid-template-columns: repeat(auto-fit, minmax(272px, 1fr)); gap: 16px; }
+.limit {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+  padding: 20px; box-shadow: var(--shadow-1); min-width: 0;
+}
+.limit h4 { font-family: var(--font-display); font-size: 1.08rem; margin: 0 0 8px; color: var(--navy); font-weight: 400; }
+.limit p { font-size: 13.2px; line-height: 1.56; color: var(--text-dim); margin: 0; }
+
+/* ---------- callout ---------- */
+.callout {
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-left: 3px solid var(--terra); border-radius: 4px;
+  padding: 22px 26px; margin: 30px 0 0;
+}
+.callout p { font-family: var(--font-display); font-size: 1.22rem; line-height: 1.5; color: var(--navy); margin: 0; }
+.callout p span { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .13em; text-transform: uppercase; color: var(--terra); display: block; margin-bottom: 9px; font-weight: 500; }
+
+footer { padding: 52px 0 76px; border-top: 1px solid var(--border); }
+footer p { font-size: 12.8px; color: var(--text-faint); line-height: 1.65; max-width: 76ch; margin: 0 0 10px; }
+.fbrand { font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--navy); margin-bottom: 16px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+.fade { animation: fadeUp .6s ease both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <span class="brand">Substance Framework</span>
+    <ul>
+      <li><a href="#problem">The problem</a></li>
+      <li><a href="#test">The LED test</a></li>
+      <li><a href="#archetypes">Four positions</a></li>
+      <li><a href="#domains">Six domains</a></li>
+      <li><a href="#lab">Method lab</a></li>
+      <li><a href="#ledger">Data ledger</a></li>
+      <li><a href="#limits">Limits</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap fade">
+    <div class="kicker">Working paper 01 &middot; framework and method</div>
+    <h1>The substance of an economy is what it can <em>reproduce</em>.</h1>
+    <p class="lede">
+      Output metrics answer one question well. They answer a different question badly, and
+      that second question is the one that decides whether a society holds together. This is a
+      framework for asking not only <strong>how much capability a society has</strong>, but
+      <strong>where it came from</strong> and <strong>whether it would survive</strong> the
+      withdrawal of its current source.
+    </p>
+    <div class="hero-rule"></div>
+  </div>
+</header>
+
+<main>
+
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <div>
+        <h2>GDP is a flow metric answering a stock question</h2>
+        <p>
+          This is not a complaint about accuracy. GDP is a well-built measure of market
+          production on a territory during a period. The problem is that a flow has been
+          assigned a stock question, and the assignment is so routine that the mismatch is no
+          longer noticed.
+        </p>
+      </div>
+    </div>
+    <div class="stats"><div class="stat">
+          <div class="snum">+26.3%</div>
+          <div class="slabel">Ireland, 2015 real GDP</div>
+          <div class="sdesc">Against +6.4% growth in net national income. The statistical office later abandoned GDP and GNP as its headline measures.</div>
+        </div><div class="stat">
+          <div class="snum">145 / 189</div>
+          <div class="slabel">Equatorial Guinea HDI rank</div>
+          <div class="sdesc">With the highest GDP per capita in Africa. A 91-place gap between income rank and human development rank.</div>
+        </div><div class="stat">
+          <div class="snum">70%</div>
+          <div class="slabel">Learning poverty, low- and middle-income countries</div>
+          <div class="sdesc">Share of 10-year-olds unable to read and understand a simple text. 57% before the pandemic; 89% in Sub-Saharan Africa.</div>
+        </div><div class="stat">
+          <div class="snum">55%</div>
+          <div class="slabel">SDG indicators with any reported value</div>
+          <div class="sdesc">Country average, 2015-2019. Twenty-two countries reported on under a quarter of the indicators.</div>
+        </div></div>
+
+    <div class="callout">
+      <p>
+        <span>Four structural biases, not four errors</span>
+        It counts only what is priced. It is gross rather than net. It is territorial rather
+        than residential. And it is indifferent to composition, so defensive expenditure
+        registers as growth.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="test">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <div>
+        <h2>Three ways a capability can be false</h2>
+        <p>
+          Existing indices measure the level of capability. Two further questions turn a
+          scoreboard into a diagnostic. A capability that is purchased, subsidised or staged
+          scores high on level and low on substance.
+        </p>
+      </div>
+    </div>
+
+    <div class="axes">
+      <div class="axis">
+        <div class="glyph">L</div>
+        <h3>Level</h3>
+        <div class="aq">Is it adequate?</div>
+        <p>
+          The conventional question, and the only one the existing instruments ask. Measured
+          by direct assessment wherever one exists: learning poverty rather than years of
+          schooling, effective coverage rather than beds.
+        </p>
+      </div>
+      <div class="axis">
+        <div class="glyph">E</div>
+        <h3>Endogeneity</h3>
+        <div class="aq">Is it produced here?</div>
+        <p>
+          Or is it imported, rented or donor-supplied? Expatriate clinicians, imported active
+          pharmaceutical ingredients, a foreign examination board, a remittance-financed
+          household budget.
+        </p>
+      </div>
+      <div class="axis">
+        <div class="glyph">D</div>
+        <h3>Durability</h3>
+        <div class="aq">Would it survive?</div>
+        <p>
+          Through a funding withdrawal, a political transition, a price spike, a programme
+          being renamed. Statutory entitlement survives; a named scheme does not.
+        </p>
+      </div>
+    </div>
+
+    <div class="formula">
+      <div>
+        <h4>Domain substance</h4>
+        <div class="f">S = <b>L</b><sup>0.50</sup> &middot; <b>E</b><sup>0.25</sup> &middot; <b>D</b><sup>0.25</sup></div>
+        <p class="fnote">
+          A weighted geometric mean, because the axes are not substitutes. A domain fully
+          present but entirely imported is not two-thirds of a capability &mdash; it is a
+          contingent one, and the product form says so.
+        </p>
+      </div>
+      <div>
+        <h4>Composite, with a binding-constraint penalty</h4>
+        <div class="f">SI = G &middot; [ (1&minus;&gamma;) + &gamma; &middot; <b>min</b><sub>d</sub> S<sub>d</sub> ]</div>
+        <p class="fnote">
+          G is the geometric mean across domains. &gamma; sets how far the weakest domain
+          drags the total. At &gamma;&nbsp;=&nbsp;0 this is the HDI rule; at &gamma;&nbsp;=&nbsp;1
+          a failed domain zeroes the score. Default &gamma;&nbsp;=&nbsp;0.5.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="archetypes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <div>
+        <h2>Four positions, and four different policy problems</h2>
+        <p>
+          Plotting level against durability produces four positions. Two jurisdictions can
+          carry the same composite score and require opposite policies &mdash; which is why the
+          composite should never be published without its diagnostic.
+        </p>
+      </div>
+    </div>
+
+    <div class="quad-shell">
+      <div class="quad-wrap">
+        <svg id="quad" viewBox="0 0 900 560" role="img"
+             aria-label="Scatter plot of synthetic archetypal profiles: mean level on the vertical axis against mean durability on the horizontal axis, coloured by mean endogeneity"></svg>
+        <div class="qtip" id="qtip"></div>
+      </div>
+      <div class="quad-legend">
+        <span class="lg"><span class="sw" style="background:var(--sage)"></span>Solid &mdash; present and reproduced</span>
+        <span class="lg"><span class="sw" style="background:var(--terra)"></span>Staged &mdash; reach without institution</span>
+        <span class="lg"><span class="sw" style="background:var(--gold)"></span>Purchased &mdash; produced elsewhere</span>
+        <span class="lg"><span class="sw" style="background:var(--text-faint)"></span>Latent or hollow</span>
+        <span class="lg" style="margin-left:auto;font-size:11.5px">Bubble area &prop; GDP per capita index &middot; synthetic data</span>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>
+        <span>Why the quadrant is the product, not the rank</span>
+        A single published rank under a single aggregation rule is a claim the data cannot
+        support. The quadrant names the problem: convert reach into institutions, or build
+        domestic production of the capability, or accept a contingent position and price it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="domains">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <div>
+        <h2>Six domains a society must reproduce</h2>
+        <p>
+          Each is stated with the conventional proxy, why that proxy fails, the substance
+          indicators, the two tests, and the known defect in the underlying data. A seventh,
+          ecological reproduction, is deliberately carried as a satellite account rather than
+          folded into the score.
+        </p>
+      </div>
+    </div>
+    
+    <details class="domain">
+      <summary>
+        <span class="dnum">D1</span>
+        <span class="dtitle">Foundational competence</span>
+        <span class="dq">Can an ordinary adult read, count and reason well enough to act in the world?</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="dbody">
+        <div class="dcol">
+          <h4>What gets measured instead</h4>
+          <p class="conv">Mean years of schooling; gross enrolment; university rankings</p>
+          <h4>Why that fails</h4>
+          <p>Years of schooling count time served, not capability acquired. Enrolment measures presence in a building. Neither detects a child who has sat through eight grades without learning to read a paragraph.</p>
+        </div>
+        <div class="dcol">
+          <h4>Substance indicators</h4>
+          <ul class="ind"><li>Learning poverty: share of 10-year-olds below minimum reading proficiency</li><li>Functional numeracy at age 15 on an applied task (unitary method, dosage, interest)</li><li>Adult literacy measured by direct assessment, not self-report</li><li>Unsubsidised learning rate: share at proficiency without paid tutoring</li><li>Teacher time-on-task from direct classroom observation</li></ul>
+        </div>
+        <div class="dcol">
+          <h4>The two tests</h4>
+          <p><strong class="tag-e">Endogeneity.</strong> Share of teachers trained in domestically financed institutions; Curriculum and examination authority held domestically; Reliance on foreign school boards or imported textbooks.</p>
+          <p><strong class="tag-d">Durability.</strong> Learning retained after a six-month interruption in instruction; Share of proficiency that survives the withdrawal of household tuition spending; Assessment cadence: is the country measuring itself, or waiting for a donor survey?.</p>
+          <div class="defect"><span>Known data defect</span>International assessments are voluntary, so the countries that participate are not a random sample. Learning poverty imputes regional values for non-reporting countries. Citizen-led surveys such as ASER are rural-only and district-sampled.</div>
+        </div>
+      </div>
+    </details>
+
+    <details class="domain">
+      <summary>
+        <span class="dnum">D2</span>
+        <span class="dtitle">Health capability</span>
+        <span class="dq">Does illness impoverish a household, and would care survive without the current programme?</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="dbody">
+        <div class="dcol">
+          <h4>What gets measured instead</h4>
+          <p class="conv">Life expectancy; health spending as a share of GDP; hospital beds per 1,000</p>
+          <h4>Why that fails</h4>
+          <p>Life expectancy is a lagging stock that moves slowly and hides distribution. Spending measures input, not access. Beds measure capacity to admit, not capacity to cure, and say nothing about who pays.</p>
+        </div>
+        <div class="dcol">
+          <h4>Substance indicators</h4>
+          <ul class="ind"><li>UHC service coverage index (tracer services, geometric mean across four categories)</li><li>Catastrophic out-of-pocket spending: share of households above 10% of budget</li><li>Impoverishing health spending: share pushed below the poverty line by medical bills</li><li>Effective coverage: hypertension controlled, not merely diagnosed</li><li>Public-sector health worker density and rural vacancy rate</li><li>Domestic share of essential medicine and diagnostic production</li></ul>
+        </div>
+        <div class="dcol">
+          <h4>The two tests</h4>
+          <p><strong class="tag-e">Endogeneity.</strong> Active pharmaceutical ingredient and device import dependence; Reliance on foreign-trained clinicians and donor-financed vertical programmes; External share of current health expenditure.</p>
+          <p><strong class="tag-d">Durability.</strong> Is entitlement statutory, or does it lapse with a named scheme?; Coverage retained through a fiscal consolidation year; Primary care staffing retained through a political transition.</p>
+          <div class="defect"><span>Known data defect</span>UHC coverage is a modelled index of tracer indicators, not an observation of care received. Out-of-pocket shares are survey-based and understate forgone care: a household that cannot afford treatment never appears in the spending data.</div>
+        </div>
+      </div>
+    </details>
+
+    <details class="domain">
+      <summary>
+        <span class="dnum">D3</span>
+        <span class="dtitle">Work that sustains a life</span>
+        <span class="dq">Does a job reproduce a household, or merely register as activity?</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="dbody">
+        <div class="dcol">
+          <h4>What gets measured instead</h4>
+          <p class="conv">Unemployment rate; GDP per worker; formal job-creation counts</p>
+          <h4>Why that fails</h4>
+          <p>The unemployment rate excludes anyone who has stopped looking and counts an hour of informal piece work as employment. In economies where most work is informal, it measures almost nothing.</p>
+        </div>
+        <div class="dcol">
+          <h4>Substance indicators</h4>
+          <ul class="ind"><li>Labour force participation, total and female, age 15 and over</li><li>Informal employment share of total employment</li><li>Share of workers with a written contract, paid leave and pension entitlement</li><li>Labour share of national income</li><li>Real wage growth less productivity growth</li><li>Youth not in employment, education or training (NEET)</li><li>Unpaid care burden in minutes per day, by sex (non-SNA production)</li></ul>
+        </div>
+        <div class="dcol">
+          <h4>The two tests</h4>
+          <p><strong class="tag-e">Endogeneity.</strong> Remittance share of household income; Commodity rent share of exports; export market concentration; Dependence on a single external buyer or single sector for employment.</p>
+          <p><strong class="tag-d">Durability.</strong> Employment retained through a demand shock; Share of jobs that exist without subsidy, protection or a public payroll; Re-employment speed after displacement.</p>
+          <div class="defect"><span>Known data defect</span>Labour force surveys change methodology. India moved from the quinquennial Employment-Unemployment Survey to an annual PLFS in 2017-18, and the treatment of unpaid helpers in household enterprises materially shifts the female participation rate. Series breaks are routinely read as trends.</div>
+        </div>
+      </div>
+    </details>
+
+    <details class="domain">
+      <summary>
+        <span class="dnum">D4</span>
+        <span class="dtitle">Security against shocks</span>
+        <span class="dq">If income stops tomorrow, does the household survive it?</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="dbody">
+        <div class="dcol">
+          <h4>What gets measured instead</h4>
+          <p class="conv">Law and order; homicide rate; rule-of-law perception indices</p>
+          <h4>Why that fails</h4>
+          <p>Order is the precondition of security, not its content. A state can be orderly and still leave every household one illness away from destitution. Perception indices of governance also track the opinions of a narrow expert panel.</p>
+        </div>
+        <div class="dcol">
+          <h4>Substance indicators</h4>
+          <ul class="ind"><li>Effective social protection coverage (at least one benefit)</li><li>Pension receipt above statutory retirement age</li><li>Share able to raise emergency funds within 30 days</li><li>Depth of health cover: share of the cost borne, not share of people enrolled</li><li>Moderate or severe food insecurity (FIES)</li><li>Shock responsiveness: coverage expansion sustained beyond the emergency</li></ul>
+        </div>
+        <div class="dcol">
+          <h4>The two tests</h4>
+          <p><strong class="tag-e">Endogeneity.</strong> Share of protection financed domestically and delivered by statute; Reliance on donor or NGO delivery of core transfers; Whether benefits are contributory entitlements or discretionary transfers.</p>
+          <p><strong class="tag-d">Durability.</strong> Coverage retained after an election; Benefit real value retained through an inflation episode; Portability across employers, sectors and states.</p>
+          <div class="defect"><span>Known data defect</span>Effective coverage counts receipt of at least one benefit, so a country paying a small child grant to many households scores well while leaving unemployment and disability unprotected. Adequacy is not measured.</div>
+        </div>
+      </div>
+    </details>
+
+    <details class="domain">
+      <summary>
+        <span class="dnum">D5</span>
+        <span class="dtitle">Fiscal and administrative capacity</span>
+        <span class="dq">Can the state tax, count, adjudicate and enforce?</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="dbody">
+        <div class="dcol">
+          <h4>What gets measured instead</h4>
+          <p class="conv">Ease of doing business; government effectiveness perception score</p>
+          <h4>Why that fails</h4>
+          <p>Business-friendliness measures the cost of compliance for firms, which is a different object from the capacity of the state to raise revenue, produce statistics and enforce contracts for everyone else.</p>
+        </div>
+        <div class="dcol">
+          <h4>Substance indicators</h4>
+          <ul class="ind"><li>Tax to GDP, and the direct tax share of total tax</li><li>Tax effort: actual revenue against estimated capacity frontier</li><li>Local government own-source revenue as a share of local spending</li><li>Judicial pendency: stock of cases, and median time to disposal</li><li>Statistical performance: can the state produce its own indicators?</li><li>Capital versus subsidy composition of public spending</li></ul>
+        </div>
+        <div class="dcol">
+          <h4>The two tests</h4>
+          <p><strong class="tag-e">Endogeneity.</strong> Revenue dependence on resource rents, aid or a single tax handle; Dependence on external technical assistance to run core surveys; Whether the fiscal base is domestic economic activity or an offshore booking centre.</p>
+          <p><strong class="tag-d">Durability.</strong> Revenue retained through a commodity price fall; Institutional authority vested in offices rather than individuals; Continuity of statistical releases across administrations.</p>
+          <div class="defect"><span>Known data defect</span>Statistical capacity is measured by the World Bank SPI across 51 indicators covering only 14 of 22 framework dimensions; eight dimensions have no established measure at all. The capacity to measure capacity is itself unmeasured.</div>
+        </div>
+      </div>
+    </details>
+
+    <details class="domain">
+      <summary>
+        <span class="dnum">D6</span>
+        <span class="dtitle">Household material substance</span>
+        <span class="dq">Does the output reach the household, and what does it buy?</span>
+        <span class="chev" aria-hidden="true"></span>
+      </summary>
+      <div class="dbody">
+        <div class="dcol">
+          <h4>What gets measured instead</h4>
+          <p class="conv">GDP per capita, at purchasing power parity</p>
+          <h4>Why that fails</h4>
+          <p>Output produced on a territory is not income received by its residents. Repatriated profit, depreciation and profit-shifting all sit between the two. A per-capita average also says nothing about the median household.</p>
+        </div>
+        <div class="dcol">
+          <h4>Substance indicators</h4>
+          <ul class="ind"><li>Real household consumption per capita</li><li>Household final consumption as a share of GDP</li><li>Food share of the household budget (Engel coefficient)</li><li>Housing cost as a share of disposable income</li><li>Household debt service ratio</li><li>Top-decile income share; Gini</li><li>Profit-shifting-adjusted national income where the gap is material</li></ul>
+        </div>
+        <div class="dcol">
+          <h4>The two tests</h4>
+          <p><strong class="tag-e">Endogeneity.</strong> Remittance share of household consumption; Import dependence of the staple consumption basket; Whether household income derives from domestic production or transferred rent.</p>
+          <p><strong class="tag-d">Durability.</strong> Consumption retained through a currency or terms-of-trade shock; Asset holdings that can be drawn down; Real income retained through a food and fuel price spike.</p>
+          <div class="defect"><span>Known data defect</span>Household consumption surveys are infrequent and expensive, and their consumption aggregates are not reconciled to national accounts. Survey-to-accounts gaps of large size are common and rarely explained.</div>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="lab">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">05</div>
+      <div>
+        <h2>The ordering moves when the rule moves</h2>
+        <p>
+          Twelve synthetic archetypal profiles, built to show how the algebra behaves. Change the
+          aggregation rule and the penalty strength, and watch the ranking rearrange: the
+          lopsided profile, strong in five domains and failing in the sixth, ranks third under
+          linear aggregation and fifth under the penalised rule. That
+          instability is the reason the robustness path must be published, not a footnote.
+        </p>
+      </div>
+    </div>
+
+    <div class="lab">
+      <div class="panel">
+        <h3>Controls</h3>
+        <div class="ctrl">
+          <label>Penalty strength <b id="gval">&gamma; = 0.50</b></label>
+          <input type="range" id="gamma" min="0" max="1" step="0.05" value="0.5">
+        </div>
+        <div class="ctrl">
+          <label>Aggregation rule</label>
+          <div class="seg" id="modes">
+            <button data-mode="penalised" class="on">Penalised geometric</button>
+            <button data-mode="geometric">Geometric mean</button>
+            <button data-mode="linear">Linear (fully compensatory)</button>
+          </div>
+        </div>
+        <div class="ctrl">
+          <label>Sort table by</label>
+          <div class="seg" id="sorts">
+            <button data-sort="sub" class="on">Substance score</button>
+            <button data-sort="gdp">GDP per capita index</button>
+            <button data-sort="gap">Output rank less substance rank</button>
+          </div>
+        </div>
+        <p class="hint">
+          Select any row to see its six domain profiles and the fragility flags the framework
+          would raise.
+        </p>
+      </div>
+
+      <div class="panel">
+        <h3>Ranking under the current rule</h3>
+        <table class="rank">
+          <thead>
+            <tr>
+              <th style="width:34px">#</th>
+              <th>Archetypal profile</th>
+              <th class="r" style="width:76px">Substance</th>
+              <th class="r" style="width:64px">GDP idx</th>
+              <th class="r" style="width:96px">Binding constraint</th>
+            </tr>
+          </thead>
+          <tbody id="rankbody"></tbody>
+        </table>
+        <div id="detail"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ledger">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">06</div>
+      <div>
+        <h2>A framework is only as good as its refusal to over-claim</h2>
+        <p>
+          For each class of source: what it measures, how it can mislead, and what it cannot
+          bear being used for. Missing indicators are not imputed. Statistical capacity is
+          scored as a capability, not adjusted away as a data problem.
+        </p>
+      </div>
+    </div>
+    <div class="tbl-scroll">
+      <table class="ledger">
+        <thead>
+          <tr><th style="width:22%">Source</th><th style="width:18%">Producer</th><th style="width:24%">What it measures</th><th>Principal defect</th></tr>
+        </thead>
+        <tbody><tr><td><strong>Learning poverty</strong></td><td>World Bank / UNESCO Institute for Statistics</td><td>Share of 10-year-olds below minimum reading proficiency</td><td class='dim'>Regional imputation for non-reporting countries; voluntary assessment participation</td></tr><tr><td><strong>UHC service coverage index</strong></td><td>WHO / World Bank</td><td>Tracer service coverage across four categories</td><td class='dim'>Modelled geometric mean; several tracers are themselves modelled</td></tr><tr><td><strong>Out-of-pocket health spending</strong></td><td>WHO Global Health Expenditure Database</td><td>Catastrophic spending above 10% of household budget</td><td class='dim'>Survey-based; understates forgone care, since a household that cannot afford treatment never appears</td></tr><tr><td><strong>Social protection coverage</strong></td><td>ILO World Social Protection Report</td><td>Effective coverage by at least one benefit</td><td class='dim'>Modelled; counts receipt, not adequacy. A small child grant scores the same as comprehensive protection</td></tr><tr><td><strong>Labour force participation</strong></td><td>ILO; national labour force surveys</td><td>Participation rate, total and female, age 15+</td><td class='dim'>Sensitive to treatment of unpaid household helpers; series breaks read as trends</td></tr><tr><td><strong>Tax to GDP and direct tax share</strong></td><td>IMF; national finance ministries</td><td>Revenue raised, and its composition</td><td class='dim'>Direct/indirect classification is not uniform across jurisdictions</td></tr><tr><td><strong>Statistical performance</strong></td><td>World Bank SPI</td><td>Capacity to produce the country's own indicators</td><td class='dim'>Covers 51 indicators across 14 of 22 dimensions; eight dimensions have no established measure</td></tr><tr><td><strong>Governance perception indices</strong></td><td>Worldwide Governance Indicators</td><td>Perception of institutional quality</td><td class='dim'>Expert-panel weighted; margins of error large enough that small rank differences are meaningless</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="limits">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">07</div>
+      <div>
+        <h2>What would show this framework is wrong</h2>
+        <p>
+          A framework that cannot be wrong is not a framework. These are the conditions under
+          which this one fails, stated so they can be tested.
+        </p>
+      </div>
+    </div>
+    <div class="limits">
+      <div class="limit">
+        <h4>The endogeneity proxies are crude</h4>
+        <p>
+          Import dependence, expatriate staffing and remittance shares are observable but
+          blunt. If the axis correlates more with trade openness than with fragility, it is
+          measuring the wrong thing and should be dropped.
+        </p>
+      </div>
+      <div class="limit">
+        <h4>Durability is inferred, not observed</h4>
+        <p>
+          No cross-country series measures whether a capability survives a shock, because
+          shocks are irregular. The proxies are structural features: predictive, not
+          dispositive. The test is whether they predict actual capability loss in a subsequent
+          crisis.
+        </p>
+      </div>
+      <div class="limit">
+        <h4>Equal domain weighting is arbitrary</h4>
+        <p>
+          Defensible on transparency grounds, arbitrary nonetheless. If the ordering is not
+          robust to plausible reweighting, the instrument is producing a preference artefact.
+        </p>
+      </div>
+      <div class="limit">
+        <h4>The penalty embeds a value judgement</h4>
+        <p>
+          That a failed domain cannot be offset is arguable. The &gamma; path exists so a
+          reader who disagrees can see what the disagreement costs.
+        </p>
+      </div>
+      <div class="limit">
+        <h4>It is a diagnostic, not a forecast</h4>
+        <p>
+          Nothing here predicts growth, crisis or regime change. Any use in that mode would be
+          unsupported by the instrument.
+        </p>
+      </div>
+      <div class="limit">
+        <h4>The indicator degrades when targeted</h4>
+        <p>
+          Goodhart's mechanism applies directly. If allocation depends on a durability score,
+          durability becomes something to perform. Prefer indicators that are expensive to
+          manipulate, and keep the underlying series visible.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fbrand">The Substance of an Economy &middot; Working Paper 01</div>
+    <p>
+      <strong>Data status.</strong> No country scores are published here. All profiles used in
+      the quadrant and the method lab are synthetic archetypes, constructed to demonstrate how
+      the algebra behaves. The four headline statistics in section 01 are drawn from published
+      sources and are labelled with their origin in the accompanying working paper.
+    </p>
+    <p>
+      Framework, indicator register, aggregation algebra, robustness protocol and the full
+      reference list are set out in the working paper. This page is the companion to it, not a
+      substitute.
+    </p>
+  </div>
+</footer>
+
+<script>
+const PROFILES = [{"name":"Mature welfare state","note":"Broad capability, domestically financed, institutionally durable.","gdp":100,"domains":[{"id":"D1","short":"Foundational competence","L":0.88,"E":0.86,"D":0.9,"S":0.8799},{"id":"D2","short":"Health capability","L":0.86,"E":0.82,"D":0.88,"S":0.8547},{"id":"D3","short":"Work that sustains a life","L":0.8,"E":0.84,"D":0.82,"S":0.8148},{"id":"D4","short":"Security against shocks","L":0.86,"E":0.88,"D":0.9,"S":0.8748},{"id":"D5","short":"Fiscal and administrative capacity","L":0.84,"E":0.86,"D":0.86,"S":0.8499},{"id":"D6","short":"Household material substance","L":0.82,"E":0.86,"D":0.84,"S":0.8348}],"meanL":0.8433,"meanE":0.8533,"meanD":0.8667,"bc":"Work that sustains a life","flags":[]},{"name":"Rent-financed high income","note":"Purchased capability: imported clinicians, imported goods, rent-dependent budget.","gdp":130,"domains":[{"id":"D1","short":"Foundational competence","L":0.62,"E":0.28,"D":0.34,"S":0.4374},{"id":"D2","short":"Health capability","L":0.72,"E":0.26,"D":0.32,"S":0.4557},{"id":"D3","short":"Work that sustains a life","L":0.48,"E":0.3,"D":0.3,"S":0.3795},{"id":"D4","short":"Security against shocks","L":0.66,"E":0.34,"D":0.28,"S":0.4513},{"id":"D5","short":"Fiscal and administrative capacity","L":0.44,"E":0.4,"D":0.36,"S":0.4086},{"id":"D6","short":"Household material substance","L":0.74,"E":0.24,"D":0.3,"S":0.4456}],"meanL":0.61,"meanE":0.3033,"meanD":0.3167,"bc":"Work that sustains a life","flags":[{"domain":"Foundational competence","kind":"staged"},{"domain":"Health capability","kind":"staged"},{"domain":"Security against shocks","kind":"staged"},{"domain":"Household material substance","kind":"staged"}]},{"name":"Fast-growth assembler","note":"Work and output expand; protection and fiscal capacity lag behind.","gdp":72,"domains":[{"id":"D1","short":"Foundational competence","L":0.54,"E":0.58,"D":0.56,"S":0.5548},{"id":"D2","short":"Health capability","L":0.52,"E":0.54,"D":0.5,"S":0.5198},{"id":"D3","short":"Work that sustains a life","L":0.66,"E":0.48,"D":0.44,"S":0.5507},{"id":"D4","short":"Security against shocks","L":0.34,"E":0.52,"D":0.4,"S":0.3938},{"id":"D5","short":"Fiscal and administrative capacity","L":0.46,"E":0.6,"D":0.52,"S":0.5069},{"id":"D6","short":"Household material substance","L":0.58,"E":0.52,"D":0.46,"S":0.5326}],"meanL":0.5167,"meanE":0.54,"meanD":0.48,"bc":"Security against shocks","flags":[]},{"name":"Frontier agrarian","note":"Low capability everywhere, but locally produced and socially reproduced.","gdp":14,"domains":[{"id":"D1","short":"Foundational competence","L":0.24,"E":0.74,"D":0.62,"S":0.4032},{"id":"D2","short":"Health capability","L":0.26,"E":0.6,"D":0.48,"S":0.3735},{"id":"D3","short":"Work that sustains a life","L":0.34,"E":0.7,"D":0.58,"S":0.4654},{"id":"D4","short":"Security against shocks","L":0.18,"E":0.66,"D":0.52,"S":0.3247},{"id":"D5","short":"Fiscal and administrative capacity","L":0.22,"E":0.72,"D":0.6,"S":0.3803},{"id":"D6","short":"Household material substance","L":0.2,"E":0.68,"D":0.54,"S":0.3481}],"meanL":0.24,"meanE":0.6833,"meanD":0.5567,"bc":"Security against shocks","flags":[]},{"name":"Staged delivery state","note":"Campaign-mode delivery: high reported reach, thin institutional base.","gdp":40,"domains":[{"id":"D1","short":"Foundational competence","L":0.58,"E":0.46,"D":0.24,"S":0.439},{"id":"D2","short":"Health capability","L":0.62,"E":0.4,"D":0.2,"S":0.4188},{"id":"D3","short":"Work that sustains a life","L":0.42,"E":0.48,"D":0.3,"S":0.3992},{"id":"D4","short":"Security against shocks","L":0.5,"E":0.42,"D":0.22,"S":0.3899},{"id":"D5","short":"Fiscal and administrative capacity","L":0.38,"E":0.44,"D":0.26,"S":0.3585},{"id":"D6","short":"Household material substance","L":0.46,"E":0.5,"D":0.28,"S":0.4149}],"meanL":0.4933,"meanE":0.45,"meanD":0.25,"bc":"Fiscal and administrative capacity","flags":[{"domain":"Foundational competence","kind":"staged"},{"domain":"Health capability","kind":"staged"}]},{"name":"Fragile state","note":"Neither capability nor the institutions that would reproduce it.","gdp":10,"domains":[{"id":"D1","short":"Foundational competence","L":0.16,"E":0.3,"D":0.22,"S":0.2027},{"id":"D2","short":"Health capability","L":0.18,"E":0.28,"D":0.2,"S":0.2064},{"id":"D3","short":"Work that sustains a life","L":0.22,"E":0.32,"D":0.24,"S":0.2469},{"id":"D4","short":"Security against shocks","L":0.1,"E":0.26,"D":0.18,"S":0.1471},{"id":"D5","short":"Fiscal and administrative capacity","L":0.12,"E":0.24,"D":0.16,"S":0.1533},{"id":"D6","short":"Household material substance","L":0.14,"E":0.3,"D":0.2,"S":0.1852}],"meanL":0.1533,"meanE":0.2833,"meanD":0.2,"bc":"Security against shocks","flags":[]},{"name":"Remittance economy","note":"Household consumption financed from abroad rather than from domestic production.","gdp":34,"domains":[{"id":"D1","short":"Foundational competence","L":0.46,"E":0.4,"D":0.48,"S":0.449},{"id":"D2","short":"Health capability","L":0.44,"E":0.38,"D":0.42,"S":0.4193},{"id":"D3","short":"Work that sustains a life","L":0.3,"E":0.34,"D":0.36,"S":0.324},{"id":"D4","short":"Security against shocks","L":0.36,"E":0.32,"D":0.34,"S":0.3446},{"id":"D5","short":"Fiscal and administrative capacity","L":0.32,"E":0.36,"D":0.4,"S":0.3485},{"id":"D6","short":"Household material substance","L":0.52,"E":0.28,"D":0.38,"S":0.4118}],"meanL":0.4,"meanE":0.3467,"meanD":0.3967,"bc":"Work that sustains a life","flags":[]},{"name":"Commodity exporter, strong institutions","note":"The counter-case: rents converted into durable domestic capability.","gdp":88,"domains":[{"id":"D1","short":"Foundational competence","L":0.74,"E":0.78,"D":0.8,"S":0.7646},{"id":"D2","short":"Health capability","L":0.72,"E":0.74,"D":0.76,"S":0.7348},{"id":"D3","short":"Work that sustains a life","L":0.64,"E":0.62,"D":0.66,"S":0.6398},{"id":"D4","short":"Security against shocks","L":0.7,"E":0.76,"D":0.74,"S":0.7245},{"id":"D5","short":"Fiscal and administrative capacity","L":0.68,"E":0.72,"D":0.7,"S":0.6948},{"id":"D6","short":"Household material substance","L":0.7,"E":0.7,"D":0.68,"S":0.6949}],"meanL":0.6967,"meanE":0.72,"meanD":0.7233,"bc":"Work that sustains a life","flags":[]},{"name":"Booking-centre financial economy","note":"Measured output inflated by activity that does not employ or house anyone.","gdp":145,"domains":[{"id":"D1","short":"Foundational competence","L":0.78,"E":0.62,"D":0.7,"S":0.7168},{"id":"D2","short":"Health capability","L":0.76,"E":0.58,"D":0.66,"S":0.6857},{"id":"D3","short":"Work that sustains a life","L":0.58,"E":0.44,"D":0.52,"S":0.5267},{"id":"D4","short":"Security against shocks","L":0.7,"E":0.6,"D":0.64,"S":0.6586},{"id":"D5","short":"Fiscal and administrative capacity","L":0.62,"E":0.54,"D":0.58,"S":0.589},{"id":"D6","short":"Household material substance","L":0.8,"E":0.22,"D":0.48,"S":0.5099}],"meanL":0.7067,"meanE":0.5,"meanD":0.5967,"bc":"Household material substance","flags":[{"domain":"Household material substance","kind":"purchased"}]},{"name":"Learning-poor middle income","note":"Health and connectivity advance while foundational competence stalls.","gdp":46,"domains":[{"id":"D1","short":"Foundational competence","L":0.26,"E":0.56,"D":0.42,"S":0.3551},{"id":"D2","short":"Health capability","L":0.58,"E":0.5,"D":0.52,"S":0.5438},{"id":"D3","short":"Work that sustains a life","L":0.44,"E":0.46,"D":0.4,"S":0.4344},{"id":"D4","short":"Security against shocks","L":0.4,"E":0.48,"D":0.44,"S":0.4287},{"id":"D5","short":"Fiscal and administrative capacity","L":0.42,"E":0.54,"D":0.48,"S":0.4624},{"id":"D6","short":"Household material substance","L":0.5,"E":0.48,"D":0.44,"S":0.4794}],"meanL":0.4333,"meanE":0.5033,"meanD":0.45,"bc":"Foundational competence","flags":[]},{"name":"Lopsided: services without schooling","note":"Strong delivery in five domains, a failed education system in the sixth.","gdp":64,"domains":[{"id":"D1","short":"Foundational competence","L":0.1,"E":0.66,"D":0.68,"S":0.2588},{"id":"D2","short":"Health capability","L":0.8,"E":0.64,"D":0.72,"S":0.7369},{"id":"D3","short":"Work that sustains a life","L":0.78,"E":0.6,"D":0.7,"S":0.711},{"id":"D4","short":"Security against shocks","L":0.76,"E":0.62,"D":0.7,"S":0.7076},{"id":"D5","short":"Fiscal and administrative capacity","L":0.74,"E":0.66,"D":0.72,"S":0.7142},{"id":"D6","short":"Household material substance","L":0.82,"E":0.58,"D":0.68,"S":0.7176}],"meanL":0.6667,"meanE":0.6267,"meanD":0.7,"bc":"Foundational competence","flags":[]},{"name":"Even but modest","note":"Adequate everywhere, outstanding nowhere, failing nowhere.","gdp":38,"domains":[{"id":"D1","short":"Foundational competence","L":0.5,"E":0.6,"D":0.58,"S":0.5431},{"id":"D2","short":"Health capability","L":0.5,"E":0.6,"D":0.58,"S":0.5431},{"id":"D3","short":"Work that sustains a life","L":0.5,"E":0.6,"D":0.58,"S":0.5431},{"id":"D4","short":"Security against shocks","L":0.5,"E":0.6,"D":0.58,"S":0.5431},{"id":"D5","short":"Fiscal and administrative capacity","L":0.5,"E":0.6,"D":0.58,"S":0.5431},{"id":"D6","short":"Household material substance","L":0.5,"E":0.6,"D":0.58,"S":0.5431}],"meanL":0.5,"meanE":0.6,"meanD":0.58,"bc":"Foundational competence","flags":[]}];
+
+const byName = Object.fromEntries(PROFILES.map(p => [p.name, p]));
+
+/* ---------- scoring ---------- */
+function domainSubstance(L, E, D) {
+  return Math.pow(L, 0.50) * Math.pow(E, 0.25) * Math.pow(D, 0.25);
+}
+function geoMean(vals) {
+  if (vals.some(v => v <= 0)) return 0;
+  return Math.pow(vals.reduce((a, b) => a * b, 1), 1 / vals.length);
+}
+function scoreProfile(p, gamma, mode) {
+  const ds = p.domains.map(d => domainSubstance(d.L, d.E, d.D));
+  if (mode === "linear") return ds.reduce((a, b) => a + b, 0) / ds.length;
+  const g = geoMean(ds);
+  if (mode === "geometric") return g;
+  const weakest = Math.min(...ds);
+  return g * ((1 - gamma) + gamma * weakest);
+}
+
+let state = { gamma: 0.5, mode: "penalised", sort: "sub", selected: null };
+
+/* ---------- quadrant ---------- */
+const SVG_NS = "http://www.w3.org/2000/svg";
+const quad = document.getElementById("quad");
+const qtip = document.getElementById("qtip");
+
+const PAD = { l: 78, r: 30, t: 34, b: 62 };
+const W = 900, H = 560;
+const PW = W - PAD.l - PAD.r, PH = H - PAD.t - PAD.b;
+
+function xScale(v) { return PAD.l + ((v - 0.10) / 0.85) * PW; }
+function yScale(v) { return PAD.t + PH - ((v - 0.05) / 0.85) * PH; }
+
+function el(tag, attrs) {
+  const e = document.createElementNS(SVG_NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  return e;
+}
+
+function zoneColor(p) {
+  const solid = p.meanL >= 0.50 && p.meanD >= 0.50;
+  const staged = p.meanL >= 0.50 && p.meanD < 0.45;
+  const purchased = p.meanL >= 0.50 && p.meanE < 0.42;
+  if (purchased) return getCSS("--gold");
+  if (staged) return getCSS("--terra");
+  if (solid) return getCSS("--sage");
+  return getCSS("--text-faint");
+}
+function getCSS(v) {
+  return getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+}
+
+function drawQuadrant() {
+  quad.innerHTML = "";
+
+  // plot background
+  quad.appendChild(el("rect", {
+    x: PAD.l, y: PAD.t, width: PW, height: PH,
+    fill: getCSS("--surface-2"), stroke: getCSS("--border"), "stroke-width": 1
+  }));
+
+  // gridlines
+  for (let v = 0.2; v <= 0.8; v += 0.2) {
+    quad.appendChild(el("line", {
+      x1: xScale(v), y1: PAD.t, x2: xScale(v), y2: PAD.t + PH,
+      stroke: getCSS("--border-soft"), "stroke-width": 1
+    }));
+    quad.appendChild(el("line", {
+      x1: PAD.l, y1: yScale(v), x2: PAD.l + PW, y2: yScale(v),
+      stroke: getCSS("--border-soft"), "stroke-width": 1
+    }));
+  }
+
+  // quadrant dividers
+  quad.appendChild(el("line", {
+    x1: xScale(0.475), y1: PAD.t, x2: xScale(0.475), y2: PAD.t + PH,
+    stroke: getCSS("--border"), "stroke-width": 1, "stroke-dasharray": "4 4"
+  }));
+  quad.appendChild(el("line", {
+    x1: PAD.l, y1: yScale(0.50), x2: PAD.l + PW, y2: yScale(0.50),
+    stroke: getCSS("--border"), "stroke-width": 1, "stroke-dasharray": "4 4"
+  }));
+
+  // quadrant labels
+  const ql = [
+    ["SOLID", 0.60, 0.85, "start"],
+    ["STAGED", 0.17, 0.85, "start"],
+    ["LATENT", 0.60, 0.115, "start"],
+    ["HOLLOW", 0.17, 0.115, "start"]
+  ];
+  ql.forEach(([t, x, y, anchor]) => {
+    const tx = el("text", {
+      x: xScale(x), y: yScale(y), "font-family": "JetBrains Mono, monospace",
+      "font-size": 10, "letter-spacing": "0.14em", fill: getCSS("--text-faint"),
+      "text-anchor": anchor, opacity: 0.75
+    });
+    tx.textContent = t;
+    quad.appendChild(tx);
+  });
+
+  // axes
+  quad.appendChild(el("line", {
+    x1: PAD.l, y1: PAD.t + PH, x2: PAD.l + PW, y2: PAD.t + PH,
+    stroke: getCSS("--navy"), "stroke-width": 1.4
+  }));
+  quad.appendChild(el("line", {
+    x1: PAD.l, y1: PAD.t, x2: PAD.l, y2: PAD.t + PH,
+    stroke: getCSS("--navy"), "stroke-width": 1.4
+  }));
+
+  // axis ticks
+  for (let v = 0.2; v <= 0.8; v += 0.2) {
+    const tx = el("text", {
+      x: xScale(v), y: PAD.t + PH + 20, "font-family": "JetBrains Mono, monospace",
+      "font-size": 10.5, fill: getCSS("--text-faint"), "text-anchor": "middle"
+    });
+    tx.textContent = v.toFixed(1);
+    quad.appendChild(tx);
+    const ty = el("text", {
+      x: PAD.l - 14, y: yScale(v) + 3.5, "font-family": "JetBrains Mono, monospace",
+      "font-size": 10.5, fill: getCSS("--text-faint"), "text-anchor": "end"
+    });
+    ty.textContent = v.toFixed(1);
+    quad.appendChild(ty);
+  }
+
+  // axis titles
+  const xt = el("text", {
+    x: PAD.l + PW / 2, y: H - 18, "font-family": "JetBrains Mono, monospace",
+    "font-size": 10, "letter-spacing": "0.14em", fill: getCSS("--navy"),
+    "text-anchor": "middle"
+  });
+  xt.textContent = "MEAN DURABILITY  →";
+  quad.appendChild(xt);
+
+  const yt = el("text", {
+    x: 20, y: PAD.t + PH / 2, "font-family": "JetBrains Mono, monospace",
+    "font-size": 10, "letter-spacing": "0.14em", fill: getCSS("--navy"),
+    "text-anchor": "middle", transform: `rotate(-90 20 ${PAD.t + PH / 2})`
+  });
+  yt.textContent = "MEAN LEVEL  →";
+  quad.appendChild(yt);
+
+  // points
+  PROFILES.forEach((p, i) => {
+    const cx = xScale(p.meanD), cy = yScale(p.meanL);
+    const r = 9 + Math.sqrt(p.gdp) * 1.55;
+    const col = zoneColor(p);
+
+    const g = el("g", { class: "qpoint" });
+    g.appendChild(el("circle", {
+      cx: cx, cy: cy, r: r, fill: col, "fill-opacity": 0.30,
+      stroke: col, "stroke-width": 1.6
+    }));
+    g.appendChild(el("circle", { cx: cx, cy: cy, r: 2.6, fill: col }));
+
+    const labelY = Math.max(cy - r - 7, PAD.t + 13);
+    const lbl = el("text", {
+      x: cx, y: labelY, "font-family": "IBM Plex Sans, sans-serif",
+      "font-size": 11.2, fill: getCSS("--text"), "text-anchor": "middle",
+      "font-weight": 500
+    });
+    lbl.textContent = p.name;
+    g.appendChild(lbl);
+
+    g.addEventListener("mousemove", (ev) => {
+      const host = quad.getBoundingClientRect();
+      const shell = qtip.parentElement.getBoundingClientRect();
+      qtip.innerHTML = `<div class="qt">${p.name}</div>
+        <div class="qn">${p.note}</div>
+        <div class="qr">L ${p.meanL.toFixed(2)} &middot; E ${p.meanE.toFixed(2)} &middot; D ${p.meanD.toFixed(2)}<br>
+        Binding constraint: ${p.bc}</div>`;
+      qtip.style.opacity = 1;
+      let lx = ev.clientX - shell.left + 16;
+      let ly = ev.clientY - shell.top + 14;
+      if (lx > shell.width - 280) lx = ev.clientX - shell.left - 270;
+      qtip.style.left = lx + "px";
+      qtip.style.top = ly + "px";
+    });
+    g.addEventListener("mouseleave", () => { qtip.style.opacity = 0; });
+    quad.appendChild(g);
+  });
+}
+
+/* ---------- ranking table ---------- */
+function render() {
+  const rows = PROFILES.map(p => {
+    const s = scoreProfile(p, state.gamma, state.mode);
+    return { p, s };
+  });
+  const bySub = [...rows].sort((a, b) => b.s - a.s);
+  const subRank = new Map(bySub.map((r, i) => [r.p.name, i + 1]));
+  const byGdp = [...rows].sort((a, b) => b.p.gdp - a.p.gdp);
+  const gdpRank = new Map(byGdp.map((r, i) => [r.p.name, i + 1]));
+
+  let ordered;
+  if (state.sort === "gdp") ordered = byGdp;
+  else if (state.sort === "gap") {
+    ordered = [...rows].sort((a, b) =>
+      (gdpRank.get(a.p.name) - subRank.get(a.p.name)) - (gdpRank.get(b.p.name) - subRank.get(b.p.name)));
+  } else ordered = bySub;
+
+  const tb = document.getElementById("rankbody");
+  tb.innerHTML = ordered.map((r, i) => {
+    const sel = state.selected === r.p.name ? " class='sel'" : "";
+    const pct = Math.max(2, Math.round(r.s * 100));
+    return `<tr data-name="${r.p.name}"${sel}>
+      <td><span class="rank-badge">${i + 1}</span></td>
+      <td class="nm">${r.p.name}</td>
+      <td class="r"><div class="bar-cell">
+        <span class="mono">${r.s.toFixed(3)}</span>
+        <span class="bar-track"><span class="bar-fill" style="width:${pct}%"></span></span>
+      </div></td>
+      <td class="r mono">${r.p.gdp}</td>
+      <td class="r" style="font-size:11.5px">${r.p.bc}</td>
+    </tr>`;
+  }).join("");
+
+  tb.querySelectorAll("tr").forEach(tr => {
+    tr.addEventListener("click", () => {
+      const nm = tr.getAttribute("data-name");
+      state.selected = state.selected === nm ? null : nm;
+      render();
+    });
+  });
+
+  renderDetail();
+}
+
+function renderDetail() {
+  const host = document.getElementById("detail");
+  if (!state.selected) { host.innerHTML = ""; return; }
+  const p = byName[state.selected];
+  const colFor = (k) => k === "L" ? getCSS("--navy") : k === "E" ? getCSS("--sage") : getCSS("--terra");
+  const cells = p.domains.map(d => {
+    const rows = ["L", "E", "D"].map(k => {
+      const v = d[k];
+      return `<div class="rw"><i>${k}</i>
+        <span class="rt"><span class="rf" style="width:${Math.round(v * 100)}%;background:${colFor(k)}"></span></span>
+        <span>${v.toFixed(2)}</span></div>`;
+    }).join("");
+    return `<div class="dcell"><div class="dn">${d.short}</div><div class="rows">${rows}</div></div>`;
+  }).join("");
+
+  const flags = [`<span class="flag bc">Binding: ${p.bc}</span>`]
+    .concat(p.flags.map(f => `<span class="flag ${f.kind}">${f.domain} &middot; ${f.kind}</span>`))
+    .join("");
+
+  host.innerHTML = `<div class="panel" style="margin-top:16px">
+    <h3>${p.name}</h3>
+    <p style="font-size:13.2px;color:var(--text-dim);margin:-6px 0 16px">${p.note}</p>
+    <div class="dgrid">${cells}</div>
+    <div class="flags">${flags}</div>
+  </div>`;
+}
+
+/* ---------- controls ---------- */
+const gammaEl = document.getElementById("gamma");
+const gvalEl = document.getElementById("gval");
+gammaEl.addEventListener("input", () => {
+  state.gamma = parseFloat(gammaEl.value);
+  gvalEl.textContent = "γ = " + state.gamma.toFixed(2);
+  render();
+});
+
+document.querySelectorAll("#modes button").forEach(b => {
+  b.addEventListener("click", () => {
+    document.querySelectorAll("#modes button").forEach(x => x.classList.remove("on"));
+    b.classList.add("on");
+    state.mode = b.getAttribute("data-mode");
+    gammaEl.disabled = (state.mode !== "penalised");
+    gammaEl.style.opacity = (state.mode === "penalised") ? 1 : 0.35;
+    render();
+  });
+});
+
+document.querySelectorAll("#sorts button").forEach(b => {
+  b.addEventListener("click", () => {
+    document.querySelectorAll("#sorts button").forEach(x => x.classList.remove("on"));
+    b.classList.add("on");
+    state.sort = b.getAttribute("data-sort");
+    render();
+  });
+});
+
+/* ---------- init ---------- */
+drawQuadrant();
+render();
+
+const mq = window.matchMedia("(prefers-color-scheme: dark)");
+mq.addEventListener("change", () => { drawQuadrant(); render(); });
+let rt;
+window.addEventListener("resize", () => {
+  clearTimeout(rt);
+  rt = setTimeout(() => { drawQuadrant(); }, 180);
+});
+</script>
+</body>
+</html>
