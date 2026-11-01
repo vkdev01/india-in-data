@@ -24,7 +24,11 @@ The page carries a published-figure register across six domains — foundational
 
 It publishes **no composite score for India**, and that is the finding rather than an omission. The framework requires three published indicators per axis before that axis is scored and refuses to impute the rest. Applied to India: the Level axis clears the three-indicator threshold in four of six domains from the static register, and five once the live World Bank series load; the Endogeneity axis carries a single indicator across the whole register, and the Durability axis carries none. A single number computed from that evidence would be an artefact of what happens to be published, and would hide precisely the gap the framework exists to expose.
 
-The working paper (PDF) and the standalone framework explorer are served from `public/substance/` and linked from the page. `/substance/methodology` carries the indicator register, the aggregation algebra, what is deliberately not published, and the known defect in every source.
+The page is a dashboard rather than an article: a State-level choropleth of female labour force participation, computed insights over the register, domain filtering, and the aggregation demonstration.
+
+`/substance/work` applies the same template to **MoSPI's own published data** — the state-wise LFPR, worker population ratio and unemployment rate from the Periodic Labour Force Survey 2023-24 (Tables 16–18, usual status, age 15+), across all 36 States and Union Territories, plus the national trend since 2017-18. It has an indicator/residence/sex selector, a choropleth, a ranked table with CSV export, the gender gap by State, and a literacy cross-check. The all-India rows reproduce MoSPI's published aggregates exactly — that match is the check on the extraction.
+
+The working paper (PDF) and the standalone framework explorer are served from `public/substance/` and linked from the page. `/substance/methodology` carries the indicator register, the aggregation algebra, the extraction method, what is deliberately not published, and the known defect in every source.
 
 ---
 
@@ -64,7 +68,8 @@ npm run fetch-data # refresh the bundled data snapshot
 | `/census/methodology` | Sources, boundary reconciliation, missing cells, limits |
 | `/glossary` | Plain-language definitions of the crime heads, legal categories and statistical terms |
 | `/substance` | The framework applied to India — six domains, three axes, and why no composite score is published. |
-| `/substance/methodology` | Indicator register, aggregation algebra and the defect in every source. |
+| `/substance/work` | The template applied to MoSPI data: State-wise LFPR, WPR and unemployment, with a choropleth, gender gaps and a seven-year trend. |
+| `/substance/methodology` | Indicator register, aggregation algebra, the MoSPI extraction method and the defect in every source. |
 | `/about` | Methodology, sources and limitations |
 
 ## Features

@@ -79,6 +79,12 @@ export const nav: NavItem[] = [
     domain: 'substance',
   },
   {
+    href: '/substance/work',
+    label: 'Work · MoSPI',
+    blurb: 'Labour force participation, employment and unemployment by State, from MoSPI PLFS.',
+    domain: 'substance',
+  },
+  {
     href: '/substance/methodology',
     label: 'Method',
     blurb: 'The indicator register, the algebra and what is deliberately not published.',
@@ -127,7 +133,11 @@ export const sources = [
     url: 'https://asercentre.org/',
     note: 'Citizen-led rural learning assessment; foundational reading and numeracy.',
   },
-  { name: 'MoSPI', url: 'https://www.mospi.gov.in/', note: 'PLFS labour force surveys and the Time Use Survey.' },
+  {
+    name: 'MoSPI',
+    url: 'https://www.mospi.gov.in/',
+    note: 'PLFS labour force surveys (state-wise estimates) and the Time Use Survey.',
+  },
   { name: 'World Health Organization', url: 'https://www.who.int/', note: 'UHC coverage, health financing and out-of-pocket spending.' },
   { name: 'International Labour Organization', url: 'https://www.ilo.org/', note: 'World Social Protection Report and social protection coverage.' },
 ];

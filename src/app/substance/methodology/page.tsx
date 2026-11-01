@@ -146,6 +146,48 @@ export default function SubstanceMethodologyPage() {
           ))}
         </Card>
 
+        <Card
+          title="How the MoSPI labour data was extracted"
+          caption="The State-level series on /substance/work comes from MoSPI's own published tables, not from a third-party aggregator."
+        >
+          <p>
+            The figures are read directly out of the Ministry&rsquo;s <em>Annual Report, Periodic Labour Force
+            Survey (PLFS), 2023-24</em>, released 23 September 2024, at three tables:
+          </p>
+          <ul className="about-list">
+            <li>
+              <strong>Table (16)</strong> — Labour Force Participation Rate, usual status (ps+ss), age 15 years and
+              above, for each State/UT.
+            </li>
+            <li>
+              <strong>Table (17)</strong> — Worker Population Ratio, same basis.
+            </li>
+            <li>
+              <strong>Table (18)</strong> — Unemployment Rate, same basis.
+            </li>
+          </ul>
+          <p>
+            Each table gives nine values per State — rural, urban and combined, each split by male, female and
+            person — across all 36 States and Union Territories. The national trend since 2017-18 comes from
+            Tables 1–3 of MoSPI&rsquo;s press note of the same date.
+          </p>
+          <div className="callout">
+            <strong>Validation.</strong> The all-India rows extracted from these tables reproduce MoSPI&rsquo;s
+            published aggregates exactly: LFPR 60.1% (male 78.8, female 41.7), WPR 58.2% (76.3 / 40.3) and UR 3.2%
+            (3.2 / 3.2) for July 2023 – June 2024. That match is the check on the extraction — if a future
+            re-extraction drifts from those numbers, the extraction is wrong, not the data.
+          </div>
+          <p>
+            <strong>One reconstruction, flagged.</strong> The report prints only six values for Chandigarh, because
+            its entire area is treated as urban and the rural and urban columns are identical. Its total column is
+            therefore set equal to the urban column, and the data module says so.
+          </p>
+          <p className="muted" style={{ marginBottom: 0 }}>
+            Nothing on that page is modelled, interpolated or estimated. Where MoSPI does not publish a State
+            estimate at this disaggregation, the State is left unshaded on the map rather than guessed.
+          </p>
+        </Card>
+
         <Card title="The research agenda this implies">
           <p>Four pieces of work would turn the framework from a specification into an instrument for India:</p>
           <ul className="about-list">
@@ -199,6 +241,11 @@ export default function SubstanceMethodologyPage() {
             <li>
               <strong>Reserve Bank of India</strong> — State Finances: A Study of Budgets, revenue dynamics and fiscal
               capacity of Indian states.
+            </li>
+            <li>
+              <strong>MoSPI / NSSO</strong> — Annual Report, Periodic Labour Force Survey (PLFS) 2023-24, Tables 16–18
+              (State-wise LFPR, WPR and UR, usual status, age 15+) and press note Tables 1–3 (national trend). The
+              State-level series on /substance/work is extracted from these tables.
             </li>
             <li>
               <strong>World Bank Open Data</strong> — household final consumption per capita and as a share of GDP, and

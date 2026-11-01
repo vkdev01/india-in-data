@@ -21,6 +21,10 @@ import { DataTable, type Column } from '@/components/ui/DataTable';
 import { usePublishPageData } from '@/components/insights/PageDataContext';
 import type { PageContext } from '@/lib/insights/engine';
 import { fetchIndiaIndicator } from '@/lib/data/worldbank';
+import { ChoroplethMap } from '@/components/charts/ChoroplethMap';
+import { HorizontalBars } from '@/components/charts/HorizontalBars';
+import { useGeo } from '@/lib/hooks/useGeo';
+import { ranked as mospiRanked, genderGap, MOSPI_META, summary as mospiSummary } from '@/lib/data/mospi';
 import {
   AXIS_LABEL,
   AXIS_QUESTION,
@@ -87,6 +91,57 @@ export default function SubstancePage() {
 
   const allIndicators = useMemo(() => [...INDIA_INDICATORS, ...household], [household]);
   const population = useMemo(() => axisPopulation(household), [household]);
+
+  // ---- state view: the one domain where MoSPI publishes State-level data ----
+  const { geo } = useGeo();
+  const [domainFilter, setDomainFilter] = useState<string>('all');
+
+  const femaleLfpr = useMemo(() => mospiRanked('lfpr', 'total', 'female'), []);
+  const lfprStats = useMemo(() => mospiSummary(femaleLfpr), [femaleLfpr]);
+  const lfprGaps = useMemo(() => genderGap('lfpr', 'total'), []);
+
+  const mapValues = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const r of femaleLfpr) m.set(r.name.trim().toLowerCase(), r.value);
+    return m;
+  }, [femaleLfpr]);
+
+  const ALIASES: Record<string, string> = useMemo(
+    () => ({
+      'jammu & kashmir': 'jammu and kashmir',
+      'andaman & n. island': 'andaman and nicobar islands',
+      'dadra and nagar haveli': 'dadra and nagar haveli and daman and diu',
+      'daman and diu': 'dadra and nagar haveli and daman and diu',
+      'nct of delhi': 'delhi',
+      orissa: 'odisha',
+      uttaranchal: 'uttarakhand',
+      pondicherry: 'puducherry',
+    }),
+    [],
+  );
+
+  const valueOfState = useMemo(
+    () => (f: { state: string }) => {
+      const k = f.state.trim().toLowerCase().replace(/\s+/g, ' ');
+      return mapValues.get(k) ?? mapValues.get(ALIASES[k] ?? '\u0000');
+    },
+    [mapValues, ALIASES],
+  );
+
+  // ---- computed insights over the register ---------------------------------
+  const insights = useMemo(() => {
+    const total = allIndicators.length;
+    const level = allIndicators.filter((i) => i.axis === 'L').length;
+    const measuredDomains = population.filter((p) => p.L >= MIN_INDICATORS_PER_AXIS).length;
+    const aser = allIndicators.filter((i) => i.source.startsWith('ASER'));
+    const weakest = population.slice().sort((a, b) => a.L - b.L)[0];
+    return { total, level, measuredDomains, aser: aser.length, weakest };
+  }, [allIndicators, population]);
+
+  const visibleDomains = useMemo(
+    () => (domainFilter === 'all' ? DOMAINS : DOMAINS.filter((d) => d.id === domainFilter)),
+    [domainFilter],
+  );
 
   // ---- the aggregation demonstration -------------------------------------
   const [gamma, setGamma] = useState(0.5);
@@ -320,8 +375,125 @@ export default function SubstancePage() {
           />
         </Card>
 
+        {/* ------------------------------------------------ state map */}
+        <Card
+          title="The one domain with a genuine State-level series"
+          caption={`Female labour force participation by State and UT, ${MOSPI_META.period}. MoSPI PLFS, usual status, age 15 and above. Darker is higher.`}
+        >
+          {geo ? (
+            <ChoroplethMap
+              geo={geo}
+              valueOf={valueOfState}
+              format={(v) => `${v.toFixed(1)}%`}
+              legendTitle="Female LFPR (%)"
+              ariaLabel="Female labour force participation rate by Indian State and Union Territory"
+              from="var(--surface-3)"
+              to="var(--c3)"
+            />
+          ) : (
+            <div className="chart-empty">Loading boundaries…</div>
+          )}
+          <div className="card-grid" style={{ ['--min' as string]: '190px', marginTop: '1rem' }}>
+            <StatCard
+              label="All-India female LFPR"
+              value="41.7%"
+              note="up from 23.3% in 2017-18"
+              tone="accent"
+            />
+            <StatCard
+              label="Highest State"
+              value={lfprStats ? `${lfprStats.max.value.toFixed(1)}%` : '—'}
+              note={lfprStats?.max.name}
+              tone="good"
+            />
+            <StatCard
+              label="Lowest State"
+              value={lfprStats ? `${lfprStats.min.value.toFixed(1)}%` : '—'}
+              note={lfprStats?.min.name}
+              tone="warn"
+            />
+            <StatCard
+              label="Spread"
+              value={lfprStats ? `${lfprStats.spread.toFixed(1)} pp` : '—'}
+              note="a range that no single national figure conveys"
+              tone="accent2"
+            />
+          </div>
+          <div className="chip-row" style={{ marginTop: '0.9rem' }}>
+            <Link className="chip" href="/substance/work">
+              Full State-level labour analysis
+            </Link>
+          </div>
+        </Card>
+
+        {/* ------------------------------------------------ insights */}
+        <Card
+          title="What the register already shows"
+          caption="Computed from the published figures on this page, not asserted."
+        >
+          <div className="card-grid" style={{ ['--min' as string]: '210px' }}>
+            <StatCard
+              label="Published indicators in the register"
+              value={String(insights.total)}
+              note={`${insights.level} on the Level axis`}
+              tone="accent"
+            />
+            <StatCard
+              label="Domains clearing the Level threshold"
+              value={`${insights.measuredDomains} of 6`}
+              note={`at least ${MIN_INDICATORS_PER_AXIS} indicators each`}
+              tone="accent2"
+            />
+            <StatCard
+              label="Weakest-measured domain"
+              value={insights.weakest ? String(insights.weakest.L) : '—'}
+              note={insights.weakest?.label}
+              tone="warn"
+            />
+            <StatCard
+              label="Indicators from citizen-led ASER"
+              value={String(insights.aser)}
+              note="the only direct learning assessment in the register"
+              tone="accent2"
+            />
+          </div>
+
+          <p className="muted" style={{ marginTop: '1rem' }}>
+            The gender gap in participation is not a national constant. The widest gaps sit where women&rsquo;s
+            paid work is least socially acceptable, not where jobs are scarcest — a different constraint from the
+            one a jobs programme addresses.
+          </p>
+          <HorizontalBars
+            items={lfprGaps.slice(0, 8).map((g) => ({ label: g.name, value: g.value }))}
+            valueFormat={(v) => `${v.toFixed(1)} pp`}
+          />
+        </Card>
+
         {/* ------------------------------------------------ the domains */}
-        {DOMAINS.map((d) => {
+        <Card
+          title="Browse by domain"
+          caption="Filter the register to a single capability, or read all six."
+        >
+          <div className="chip-row">
+            <button
+              className={`chip${domainFilter === 'all' ? ' active' : ''}`}
+              onClick={() => setDomainFilter('all')}
+            >
+              All six
+            </button>
+            {DOMAINS.map((d) => (
+              <button
+                key={d.id}
+                className={`chip${domainFilter === d.id ? ' active' : ''}`}
+                onClick={() => setDomainFilter(d.id)}
+              >
+                {d.code} · {d.label}
+              </button>
+            ))}
+          </div>
+        </Card>
+
+        {visibleDomains.map((d) => {
           const rows = allIndicators.filter((i) => i.domain === d.id);
           const status = population.find((p) => p.domain === d.id);
           return (
