@@ -81,8 +81,7 @@ export default function SubstanceMethodologyPage() {
             complete-looking matrix in which the least well-measured places carry the most invented data.
           </p>
           <div className="callout warn">
-            <strong>No composite score is published for India.</strong> The Level axis is reasonably measured in five of
-            six domains, the Endogeneity axis in one, and the Durability axis in none. A number computed from that
+            <strong>No composite score is published for India.</strong> The Level axis clears the three-indicator threshold in four of six domains from the static register, and five once the live World Bank household series load. The Endogeneity axis carries a single indicator across the entire register, and the Durability axis carries none. A number computed from that
             evidence would be an artefact of what happens to be published, and it would hide the gap it was meant to
             expose.
           </div>

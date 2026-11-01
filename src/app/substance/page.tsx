@@ -389,8 +389,7 @@ export default function SubstancePage() {
         <Card title="Why no composite score appears on this page">
           <p>
             The framework requires three published indicators per axis before that axis is scored, and it refuses to
-            impute the rest. Applied to India, that rule has a consequence worth stating plainly: the Level axis is
-            reasonably measured in five of six domains, the Endogeneity axis in one, and the Durability axis in none.
+            impute the rest. Applied to India, that rule has a consequence worth stating plainly: the Level axis clears the three-indicator threshold in four of the six domains from published figures alone — five once the live World Bank household series load — while the Endogeneity axis carries a single indicator across the entire register and the Durability axis carries none.
           </p>
           <p>
             A single number computed from that evidence would be an artefact of what happens to be published. Worse, it
